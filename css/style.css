@@ -1,0 +1,366 @@
+/* ============================================================
+   sethkolodny.com — stylesheet
+   Plain CSS, no frameworks. Edit colors in the :root block below.
+   ============================================================ */
+
+/* ---- 1. Color palette -------------------------------------
+   Change these six values to restyle the whole site at once.   */
+:root {
+  --ink:        #1a1d21;   /* main text                        */
+  --ink-soft:   #565d66;   /* secondary text, captions         */
+  --paper:      #fbfaf8;   /* page background                  */
+  --card:       #ffffff;   /* raised surfaces                  */
+  --rule:       #e3e0da;   /* hairlines and borders            */
+  --accent:     #1f4d6b;   /* links, highlights — deep navy    */
+  --accent-alt: #8a5a2b;   /* secondary accent — warm brown    */
+
+  --measure: 68ch;         /* max line length for readability  */
+  --gutter:  clamp(1.25rem, 5vw, 3rem);
+}
+
+/* Automatic dark mode for phones/laptops set to dark. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:        #e8e6e1;
+    --ink-soft:   #a2a8b0;
+    --paper:      #14171a;
+    --card:       #1c2024;
+    --rule:       #2e3439;
+    --accent:     #7fb5d6;
+    --accent-alt: #d4a06a;
+  }
+}
+
+/* ---- 2. Reset and base ------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;   /* stop iOS inflating text  */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+/* Keyboard users must always see where they are. */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- 3. Headings ------------------------------------------ */
+h1, h2, h3 {
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;        /* avoids lonely words on a line   */
+}
+
+h1 { font-size: clamp(2rem, 5.5vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin-top: 2.5rem; }
+h3 { font-size: 1.2rem; margin-top: 2rem; }
+
+p { margin: 0 0 1.15rem; }
+p, li { max-width: var(--measure); }
+
+/* ---- 4. Layout -------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: 62rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+main { padding-block: clamp(2rem, 6vw, 4rem); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: var(--gutter);
+  top: 0.5rem;
+  z-index: 100;
+  background: var(--card);
+  color: var(--ink);
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+}
+
+/* ---- 5. Header and navigation ------------------------------ */
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 0.9rem;
+}
+
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.brand:hover { color: var(--accent); }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.nav a:hover { color: var(--ink); }
+
+/* The current page gets an underline. */
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* ---- 6. Hero (home page) ----------------------------------- */
+.hero {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  padding-block: clamp(1rem, 4vw, 2.5rem);
+}
+
+@media (min-width: 46rem) {
+  .hero { grid-template-columns: 1.4fr 1fr; }
+}
+
+.hero h1 { margin-bottom: 0.3em; }
+
+.hero .lede {
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  color: var(--ink-soft);
+  max-width: 40ch;
+}
+
+.portrait {
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  background: var(--rule);
+}
+
+/* ---- 7. Buttons -------------------------------------------- */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 4px;
+  font-size: 0.97rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-solid  { background: var(--accent); color: var(--paper); }
+.btn-solid:hover  { background: var(--ink); border-color: var(--ink); }
+
+.btn-hollow { background: transparent; color: var(--accent); }
+.btn-hollow:hover { background: var(--accent); color: var(--paper); }
+
+/* ---- 8. Cards ---------------------------------------------- */
+.cards {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.35rem;
+  max-width: none;
+}
+
+.card h3 { margin-top: 0; }
+.card p  { color: var(--ink-soft); margin-bottom: 0; max-width: none; }
+
+.card a.card-link {
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-size: 0.93rem;
+  font-weight: 500;
+}
+
+/* ---- 9. Post / article list -------------------------------- */
+.posts { list-style: none; margin: 2rem 0 0; padding: 0; }
+
+.posts li {
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--rule);
+  max-width: none;
+}
+.posts li:last-child { border-bottom: 1px solid var(--rule); }
+
+.posts h3 { margin: 0 0 0.35rem; }
+.posts h3 a { text-decoration: none; }
+.posts h3 a:hover { text-decoration: underline; }
+
+.post-date {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.posts p { color: var(--ink-soft); margin: 0; }
+
+/* ---- 10. Notes, disclaimers -------------------------------- */
+.note {
+  border-left: 3px solid var(--accent-alt);
+  background: var(--card);
+  padding: 1rem 1.25rem;
+  margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.93rem;
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+.note p:last-child { margin-bottom: 0; }
+.note strong { color: var(--ink); }
+
+/* ---- 11. Definition-style contact list --------------------- */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  gap: 1rem;
+}
+.contact-list li { max-width: none; }
+.contact-list .label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+
+/* ---- 12. Footer -------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--rule);
+  margin-top: clamp(3rem, 8vw, 5rem);
+  padding-block: 2rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.site-footer p { max-width: none; margin-bottom: 0.5rem; }
+.site-footer a { color: var(--ink-soft); }
+.site-footer a:hover { color: var(--accent); }
+
+/* ---- 13. Respect reduced-motion preferences ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* ---- 14. Print --------------------------------------------- */
+@media print {
+  .site-header, .site-footer, .btn-row { display: none; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+}
+
+/* ---- 15. Inline code and code blocks ----------------------- */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  overflow-wrap: break-word;
+}
+
+pre {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;          /* long lines scroll, instead of
+                                stretching the page on a phone  */
+  font-size: 0.88rem;
+  line-height: 1.5;
+  max-width: var(--measure);
+}
+pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
+/* ---- 16. Tables -------------------------------------------- */
+/* Wrap a table in <div class="table-scroll"> so it scrolls
+   sideways on a phone instead of breaking the layout.          */
+.table-scroll { overflow-x: auto; margin: 1.5rem 0; }
+
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+th { font-weight: 600; color: var(--ink); white-space: nowrap; }

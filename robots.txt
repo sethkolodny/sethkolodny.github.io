@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sethkolodny.com/sitemap.xml

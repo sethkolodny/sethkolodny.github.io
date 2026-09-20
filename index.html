@@ -50,11 +50,15 @@
         </div>
       </div>
 
-      <!-- Replace with your own photo: put the file in assets/images/ -->
-      <img class="portrait"
-           src="assets/images/portrait-placeholder.svg"
-           alt="Portrait of Seth Kolodny"
-           width="440" height="550">
+      <!-- Modern browsers get the smaller WebP; older ones fall back to JPEG. -->
+      <picture>
+        <source srcset="assets/images/portrait.webp" type="image/webp">
+        <img class="portrait"
+             src="assets/images/portrait.jpg"
+             alt="Portrait of Seth Kolodny"
+             width="800" height="800"
+             fetchpriority="high">
+      </picture>
     </section>
 
     <h2>What you&rsquo;ll find here</h2>

@@ -183,10 +183,12 @@ main { padding-block: clamp(2rem, 6vw, 4rem); }
   max-width: 40ch;
 }
 
+.hero picture { display: block; }
+
 .portrait {
   border-radius: 6px;
   border: 1px solid var(--rule);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   width: 100%;
   max-width: 22rem;

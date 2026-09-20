@@ -40,12 +40,14 @@
     <ul class="contact-list">
       <li>
         <span class="label">Email</span>
-        <!-- EDIT ME: put the address you want to use publicly. -->
-        <a href="mailto:you@example.com">you@example.com</a>
+        <!-- The address is assembled by the script at the bottom of this
+             page, so scrapers reading the raw HTML never see it whole.
+             People with JavaScript off still get the readable version. -->
+        <span id="email-slot"><noscript>sethkolodny [at] gmail [dot] com</noscript></span>
       </li>
       <li>
         <span class="label">LinkedIn</span>
-        <a href="https://www.linkedin.com/in/YOUR-HANDLE">linkedin.com/in/YOUR-HANDLE</a>
+        <a href="https://www.linkedin.com/in/sethkolodny/">linkedin.com/in/sethkolodny</a>
       </li>
     </ul>
 
@@ -66,7 +68,23 @@
   </div>
 </footer>
 
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Builds the email address from pieces at page load. A spam bot reading
+   the raw HTML finds no address; a real visitor gets a working link. */
+(function () {
+  var user = "sethkolodny";
+  var host = "gmail" + "." + "com";
+  var slot = document.getElementById("email-slot");
+  if (!slot) return;
+  var link = document.createElement("a");
+  link.href = "mail" + "to:" + user + String.fromCharCode(64) + host;
+  link.textContent = user + String.fromCharCode(64) + host;
+  slot.textContent = "";
+  slot.appendChild(link);
+}());
+</script>
 
 </body>
 </html>
